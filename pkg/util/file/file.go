@@ -1,6 +1,8 @@
 package file
 
-import "strings"
+import (
+	"strings"
+)
 
 var root string
 
@@ -35,10 +37,10 @@ func (n *Node) insert(path string, value string,orginPath string) {
 	}
 	ps := strings.Split(path, "/")
 	length := len(ps)
-	is_exist := false
+	isExist := false
 	for _, p := range n.Children {
 		if ps[0] == p.Name {
-			is_exist = true
+			isExist = true
 			if length==1{
 				p.Value = value
 				p.Key=orginPath
@@ -49,7 +51,7 @@ func (n *Node) insert(path string, value string,orginPath string) {
 			}
 		}
 	}
-	if !is_exist {
+	if !isExist {
 		newNode := &Node{
 			Name:     ps[0],
 			Children: []*Node{},

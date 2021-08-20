@@ -13,7 +13,7 @@ import (
 func Monitor() map[string]interface{} {
 	var err error
 	data := make(map[string]interface{})
-	path := "/Users/fsliu/go/src/git.extremevision.com.cn/yumen/push_gateway_tools/pkg"
+	path := "/Users/fsliu/Documents/work/company/jsj/data_set"
 
 	allFile, err := file.GetAllFile(path)
 	if err != nil {
