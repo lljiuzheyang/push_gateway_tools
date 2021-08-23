@@ -16,14 +16,14 @@ func init() {
 
 
 func main()  {
-	cron := cron.New()
+	cron2 := cron.New()
 	//执行定时任务（每10秒执行一次）
-	err:= cron.AddFunc("*/1 * * * * *", cmd)
+	err:= cron2.AddFunc("*/1 * * * * *", cmd)
 	if err!=nil{
 		fmt.Println(err)
 	}
-	cron.Start()
-	defer cron.Stop()
+	cron2.Start()
+	defer cron2.Stop()
 	select {
 	//查询语句，保持程序运行，在这里等同于for{}
 	}
