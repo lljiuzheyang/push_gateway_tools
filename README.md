@@ -47,7 +47,7 @@ docker run -itd -v /data/go/runtime:/runtime  -p 8000:8000 push_gateway_tools_go
 | --------------------------- | ------ | ----------------- | ------------------------------ |
 | INSTANCE_NAMESPACE          | string | 实例的命名空间    | platform                       |
 | DEPLOY_NAME                 | string | deploy name       | platform-15-instance-51-ov-ide |
-| MODEL_PATH                  | string | 需要监听的目录    | /home/date/model               |
+| MODEL_PATH                  | string | 需要监听的目录    | /home/data/model               |
 | PROMETHEUS_PUSH_GATEWAY_URL | string | Push gateway 服务 | http://pushgateway:9091        |
 
 
