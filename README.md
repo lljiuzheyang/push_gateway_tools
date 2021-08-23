@@ -7,7 +7,7 @@ prometheus文件目录监听
 - 基于 go mod 的依赖管理(国内源可使用：https://goproxy.cn/)
 
 ### 依赖
-- 开发语言:`Golang ^1.16
+- 开发语言:`Golang ^1.16`
 
 - 依赖软件包:
   ```go
@@ -38,7 +38,7 @@ $ go run main.go
 ```shell
 docker build -t push_gateway_tools_go:v1 .
 
-docker run -itd -v /data/go/runtime:/runtime  -p 8000:8000 push_gateway_tools_go:v1
+docker run -itd -v /data/go/runtime:/runtime  push_gateway_tools_go:v1
 ```
 
 ### 环境变量说明
