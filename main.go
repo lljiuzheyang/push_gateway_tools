@@ -14,12 +14,11 @@ func init() {
 	logging.Setup()
 }
 
-
-func main()  {
+func main() {
 	cron2 := cron.New()
 	//执行定时任务（每10秒执行一次）
-	err:= cron2.AddFunc("*/1 * * * * *", cmd)
-	if err!=nil{
+	err := cron2.AddFunc("*/1 * * * * *", cmd)
+	if err != nil {
 		fmt.Println(err)
 	}
 	cron2.Start()
@@ -29,7 +28,7 @@ func main()  {
 	}
 }
 
-func cmd()  {
+func cmd() {
 	fmt.Println("每1s执行一次cron")
 	fmt.Println(viper.GetString("INSTANCE_NAMESPACE"))
 	fmt.Println(viper.GetString("DEPLOY_NAME"))
