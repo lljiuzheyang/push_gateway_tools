@@ -8,12 +8,17 @@ import (
 	"git.extremevision.com.cn/yumen/push_gateway_tools/pkg/logging"
 	"strings"
 	"strconv"
+	"fmt"
+
+	"github.com/prometheus/client_golang/prometheus"
+	"github.com/prometheus/client_golang/prometheus/push"
+	"github.com/spf13/viper"
 )
 
 func Monitor() map[string]interface{} {
 	var err error
 	data := make(map[string]interface{})
-	path := "/Users/fsliu/Documents/work/company/jsj/data_set"
+	path := viper.GetString("MODEL_PATH")
 
 	allFile, err := file.GetAllFile(path)
 	if err != nil {
@@ -30,6 +35,27 @@ func Monitor() map[string]interface{} {
 		log.Fatal(err)
 	}
 	logging.Warn(string(res))
+	Collector(string(res))
 	data["dir"] = string(res)
 	return data
+}
+
+func Collector(resJson string) {
+	completionTime := prometheus.NewGauge(prometheus.GaugeOpts{
+		Name: "db_backup_model_last_completion_timestamp_seconds",
+		Help: "The timestamp of the last successful completion of a DB backup.",
+	})
+	prometheusPushGatewayUrl := viper.GetString("PROMETHEUS_PUSH_GATEWAY_URL")
+	deployName := viper.GetString("DEPLOY_NAME")
+	namespace := viper.GetString("INSTANCE_NAMESPACE")
+
+	completionTime.SetToCurrentTime()
+	if err := push.New(prometheusPushGatewayUrl, "db_backup_model").
+		Collector(completionTime).
+		Grouping("deploy_name", deployName).
+		Grouping("namespace", namespace).
+		Grouping("model_directory", resJson).
+		Push(); err != nil {
+		fmt.Println("Could not push completion time to Pushgateway:", err)
+	}
 }
